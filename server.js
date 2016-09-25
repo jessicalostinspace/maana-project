@@ -1,6 +1,6 @@
 // require express
 var express = require("express");
-var httpsRedirect = require('express-https-redirect');
+// var httpsRedirect = require('express-https-redirect');
 var path = require("path");
 var app = express();
 
