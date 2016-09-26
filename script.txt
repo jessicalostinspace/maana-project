@@ -1,0 +1,33 @@
+#!/bin/sh
+
+read -p "Enter file path: " FILE_PATH
+
+if [ -e "$FILE_PATH" ]
+then
+	echo "File path exists"
+else
+	echo "File path does not exist"
+exit
+fi
+
+find $FILE_PATH -type f -name "*.txt" | while read -r line
+	do
+		array=(`wc -w < $line`)
+		echo $array >> count.txt
+done
+
+find $FILE_PATH -type f -name "*.zip" | while read -r line
+	do 
+		unzip $line -d destination_folder
+		find destination_folder -type f -name "*.txt" | while read -r newline
+			do 
+				echo `wc -w < $newline` >> count.txt
+		done		
+done
+
+# histogram of word count
+
+sort -n count.txt | uniq -c > sorted.txt
+
+
+
